@@ -1,4 +1,8 @@
 package online.group.Learning.model.dto;
 
-public record StudentDTO(Long id, String name, String email) {
+import online.group.Learning.model.entity.CourseOffering;
+
+import java.util.List;
+
+public record StudentDTO(String name, String email, List<CourseOfferingDTO> courseOfferingDTOS) {
 }
