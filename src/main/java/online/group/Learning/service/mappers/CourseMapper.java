@@ -7,6 +7,7 @@ public class CourseMapper {
 
     public static Course toCourse(@NotNull CourseDTO courseDTO) {
         Course course = new Course();
+        course.setId(courseDTO.id());
         course.setName(courseDTO.name());
         course.setCourseCode(courseDTO.courseCode());
         course.setCourseOfferings(courseDTO.courseOfferings());
@@ -17,7 +18,7 @@ public class CourseMapper {
     }
 
     public static CourseDTO toCourseDTO(@NotNull Course course) {
-        return new CourseDTO(course.getName(), course.getCourseCode(), course.getCourseOfferings(),
+        return new CourseDTO(course.getId(), course.getName(), course.getCourseCode(), course.getCourseOfferings(),
                 course.getDescription(), course.getImageAddress(), course.getVideoAddress());
     }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name = "course_offerings")
 public class CourseOffering {
 
@@ -19,25 +19,20 @@ public class CourseOffering {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    @Setter
+
     private Course course;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-    @Setter
+
     private Teacher teacher;
 
     @ManyToMany(mappedBy = "courseOfferings")
-    @Setter
     private List<Student> students;
 
-    @Setter
     private String semester;
 
-    @Setter
     private LocalDate endDate;
 
-    @Setter
     private LocalDate startDate;
-
 }

@@ -3,8 +3,7 @@ package online.group.Learning.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.List;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -16,5 +15,5 @@ public class Student extends User {
     @JoinTable(name = "enrollment",
     joinColumns = @JoinColumn(name = "courseOfferingId"),
     inverseJoinColumns = @JoinColumn(name = "studentId"))
-    private List<CourseOffering> courseOfferings;
+    private Set<CourseOffering> courseOfferings;
 }

@@ -5,10 +5,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -17,6 +15,6 @@ import java.util.List;
 public class Teacher extends User {
 
     @OneToMany(mappedBy = "teacher")
-    private List<CourseOffering> courseOfferings;
+    private Set<CourseOffering> courseOfferings;
 
 }

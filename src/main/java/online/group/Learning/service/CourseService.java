@@ -25,4 +25,13 @@ public class CourseService {
         Course course = CourseMapper.toCourse(courseDTO);
         return courseRepository.save(course);
     }
+
+    public CourseDTO updateCourse(CourseDTO courseDTO) {
+        Course course = CourseMapper.toCourse(courseDTO);
+        return CourseMapper.toCourseDTO(courseRepository.save(course));
+    }
+
+    public void deleteCourse(Long courseId) {
+         courseRepository.deleteById(courseId);
+    }
 }

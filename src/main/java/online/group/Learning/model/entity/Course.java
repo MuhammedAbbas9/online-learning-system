@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.util.List;
 
+@Setter @Getter
 @Entity
 @Table(name = "courses")
 public class Course {
@@ -16,23 +17,15 @@ public class Course {
     private Long id;
 
     @Column(nullable = false)
-    @Setter @Getter
     private String name;
 
     @Column(nullable = false)
-    @Setter @Getter
     private String courseCode;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    @Setter @Getter
     private List<CourseOffering> courseOfferings;
 
-    @Setter @Getter
     private String description;
-
-    @Setter @Getter
     private String imageAddress;
-
-    @Setter @Getter
     private String videoAddress;
 }
