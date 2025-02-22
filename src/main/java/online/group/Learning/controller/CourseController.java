@@ -50,7 +50,7 @@ public class CourseController {
     }
 
     @DeleteMapping("{id}")
-    public void deleteCourse(@PathVariable("courseId") Long id) {
+    public void deleteCourse(@PathVariable("id") Long id) {
         courseService.deleteCourse(id);
     }
 }

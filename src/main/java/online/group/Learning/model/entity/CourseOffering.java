@@ -1,7 +1,7 @@
 package online.group.Learning.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,20 +19,17 @@ public class CourseOffering {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-
     private Course course;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-
     private Teacher teacher;
 
     @ManyToMany(mappedBy = "courseOfferings")
     private List<Student> students;
 
-    private String semester;
-
+    private String term;
     private LocalDate endDate;
-
     private LocalDate startDate;
+
 }

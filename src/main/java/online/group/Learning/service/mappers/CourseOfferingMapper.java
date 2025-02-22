@@ -5,7 +5,8 @@ import online.group.Learning.model.entity.Course;
 import online.group.Learning.model.entity.CourseOffering;
 import online.group.Learning.model.entity.Teacher;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
 
 public class CourseOfferingMapper {
 
@@ -21,7 +22,7 @@ public class CourseOfferingMapper {
             courseOffering.setStudents(courseOfferingDTO.studentDTOList().stream().map(StudentMapper::toStudent).toList());
         else courseOffering.setStudents(null);
 
-        courseOffering.setSemester(courseOfferingDTO.semester());
+        courseOffering.setTerm(courseOfferingDTO.term());
         courseOffering.setStartDate(courseOfferingDTO.startDate());
         courseOffering.setEndDate(courseOfferingDTO.endDate());
 
@@ -29,9 +30,11 @@ public class CourseOfferingMapper {
     }
 
     public static CourseOfferingDTO toCourseOfferingDTO(CourseOffering courseOffering) {
+
+        if(courseOffering.getStudents() == null)
+            courseOffering.setStudents(new ArrayList<>());
         return new CourseOfferingDTO(courseOffering.getId(), CourseMapper.toCourseDTO(courseOffering.getCourse()),
-                TeacherMapper.toTeacherDTO(courseOffering.getTeacher()),
-                courseOffering.getStudents().stream().map(StudentMapper::toStudentDTO).toList(),
-                courseOffering.getSemester(), courseOffering.getStartDate(), courseOffering.getEndDate());
+                TeacherMapper.toTeacherDTO(courseOffering.getTeacher()), null,
+                courseOffering.getTerm(), courseOffering.getStartDate(), courseOffering.getEndDate());
     }
 }

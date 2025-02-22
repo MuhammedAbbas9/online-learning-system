@@ -2,11 +2,14 @@ package online.group.Learning.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import online.group.Learning.model.dto.StudentDTO;
+import online.group.Learning.model.dto.UserDTO;
 import online.group.Learning.model.entity.CourseOffering;
 import online.group.Learning.model.entity.Student;
+import online.group.Learning.model.entity.User;
 import online.group.Learning.repository.StudentRepository;
 import online.group.Learning.service.mappers.CourseOfferingMapper;
 import online.group.Learning.service.mappers.StudentMapper;
+import online.group.Learning.service.mappers.UserMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,5 +42,11 @@ public class StudentService {
         student.getCourseOfferings().remove(courseOffering);
         student = studentRepository.save(student);
         return StudentMapper.toStudentDTO(student);
+    }
+
+    public UserDTO createStudent(UserDTO userDTO) {
+        Student student = StudentMapper.toStudent(new StudentDTO(userDTO.id(), userDTO.name(), userDTO.email(), null));
+        User user = studentRepository.save(student);
+        return UserMapper.toDTO(user);
     }
 }
