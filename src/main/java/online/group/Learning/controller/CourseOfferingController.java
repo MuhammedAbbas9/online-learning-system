@@ -1,7 +1,10 @@
 package online.group.Learning.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import online.group.Learning.model.dto.CourseOfferingDTO;
 import online.group.Learning.service.CourseOfferingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,32 +32,39 @@ import java.util.List;
 @RequestMapping("/api/course-offerings")
 public class CourseOfferingController {
 
-    private final CourseOfferingService courseOfferingService;
+    @Autowired
+    private CourseOfferingService courseOfferingService;
 
-    public CourseOfferingController(CourseOfferingService courseOfferingService) {
-        this.courseOfferingService = courseOfferingService;
-    }
-
+    @Operation(summary = "Get all Course Offerings", description = "Fetch a list of all the course offerings")
+    @ApiResponse(responseCode = "200", description = "Course Offerings list is fetched successfully!")
     @GetMapping
     public ResponseEntity<List<CourseOfferingDTO>> listAllCourseOfferings() {
         return ResponseEntity.ok(courseOfferingService.getAllCourseOfferings());
     }
 
+    @Operation(summary = "Get Course Offering By Id", description = "Fetch the details of a course offering by id")
+    @ApiResponse(responseCode = "200", description = "Course Offering details are fetched successfully!")
     @GetMapping("{id}")
     public ResponseEntity<CourseOfferingDTO> getCourseOfferingById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(courseOfferingService.getCourseOfferingById(id));
     }
 
+    @Operation(summary = "Create a Course Offering", description = "Create a new course offering using JSON Object")
+    @ApiResponse(responseCode = "201", description = "Course Offering is created successfully!")
     @PostMapping
     public ResponseEntity<CourseOfferingDTO> createCourseOffering(@RequestBody CourseOfferingDTO courseOfferingDTO) {
         return ResponseEntity.ok(courseOfferingService.createCourseOffering(courseOfferingDTO));
     }
 
+    @Operation(summary = "Update a Course Offering", description = "Update the details of a course offering")
+    @ApiResponse(responseCode = "201", description = "Course Offering details are updated successfully!")
     @PutMapping
     public ResponseEntity<CourseOfferingDTO> updateCourseOffering(@RequestBody CourseOfferingDTO courseOfferingDTO) {
         return ResponseEntity.ok(courseOfferingService.updateCourseOffering(courseOfferingDTO));
     }
 
+    @Operation(summary = "Delete a Course Offering", description = "Delete a course offering from the database")
+    @ApiResponse(responseCode = "201", description = "Course Offering is deleted successfully!")
     @DeleteMapping("{id}")
     public void deleteCourseOffering(@PathVariable("id") Long id) {
         courseOfferingService.deleteCourseOffering(id);

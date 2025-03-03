@@ -10,8 +10,6 @@ import online.group.Learning.repository.StudentRepository;
 import online.group.Learning.service.mappers.CourseOfferingMapper;
 import online.group.Learning.service.mappers.StudentMapper;
 import online.group.Learning.service.mappers.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +37,7 @@ public class StudentService {
         return StudentMapper.toStudentDTO(student);
     }
 
-    public StudentDTO unrollStudentFromCourseOffering(Long studentId, Long courseOfferingId) {
+    public StudentDTO deregisterStudentFromCourseOffering(Long studentId, Long courseOfferingId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("Student not found with id: " + studentId));
         CourseOffering courseOffering = CourseOfferingMapper.

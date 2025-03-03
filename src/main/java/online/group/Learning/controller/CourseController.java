@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import online.group.Learning.model.dto.CourseDTO;
 import online.group.Learning.model.entity.Course;
 import online.group.Learning.service.CourseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,11 +31,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {
-    private final CourseService courseService;
 
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
-    }
+    @Autowired
+    private CourseService courseService;
 
     @Operation(summary = "Get all courses", description = "Fetch a list of all available courses")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved courses")
@@ -43,16 +42,22 @@ public class CourseController {
         return ResponseEntity.ok(courseService.getAllCourses());
     }
 
+    @Operation(summary = "Create a new course", description = "Create a new course using a JSON object")
+    @ApiResponse(responseCode = "200", description = "Course is created successfully!")
     @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody CourseDTO courseDto) {
         return ResponseEntity.ok(courseService.createCourse(courseDto));
     }
 
+    @Operation(summary = "Update Course", description = "Update any details of a course")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved courses")
     @PutMapping
     public ResponseEntity<CourseDTO> updateCourseDetails(@RequestBody CourseDTO courseDTO) {
         return ResponseEntity.ok(courseService.updateCourse(courseDTO));
     }
 
+    @Operation(summary = "Delete a Course", description = "delete a course by id")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved courses")
     @DeleteMapping("{id}")
     public void deleteCourse(@PathVariable("id") Long id) {
         courseService.deleteCourse(id);

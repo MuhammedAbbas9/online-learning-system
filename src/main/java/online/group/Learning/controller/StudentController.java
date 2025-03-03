@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import online.group.Learning.model.dto.StudentDTO;
 import online.group.Learning.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,10 +28,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/students")
 public class StudentController {
 
-    private final StudentService studentService;
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
+    @Autowired
+    private StudentService studentService;
 
     @Operation(summary = "Enroll student in a course", description = "Enrolls a student in a course offering")
     @ApiResponse(responseCode = "201", description = "Student enrolled successfully")
@@ -40,9 +39,11 @@ public class StudentController {
         return ResponseEntity.ok(studentDTO);
     }
 
-    @DeleteMapping("unroll")
-    public ResponseEntity<StudentDTO> unrollStudent(@RequestParam Long studentId, @RequestParam Long courseOfferingId) {
-        StudentDTO studentDTO = studentService.unrollStudentFromCourseOffering(studentId, courseOfferingId);
+    @Operation(summary = "Deregister student from a course", description = "Deregister a student from a course offering")
+    @ApiResponse(responseCode = "201", description = "Student deregistered successfully")
+    @DeleteMapping("deregister")
+    public ResponseEntity<StudentDTO> deregisterStudent(@RequestParam Long studentId, @RequestParam Long courseOfferingId) {
+        StudentDTO studentDTO = studentService.deregisterStudentFromCourseOffering(studentId, courseOfferingId);
         return ResponseEntity.ok(studentDTO);
     }
 
