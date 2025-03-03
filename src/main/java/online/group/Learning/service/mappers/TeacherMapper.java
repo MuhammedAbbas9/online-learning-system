@@ -13,7 +13,9 @@ public class TeacherMapper {
     public static Teacher toTeacher(@NotNull TeacherDTO teacherDTO) {
         Teacher teacher = new Teacher();
         teacher.setId(teacherDTO.id());
-        teacher.setName(teacherDTO.name());
+        teacher.setFullName(teacherDTO.fullName());
+        teacher.setUsername(teacherDTO.username());
+        teacher.setPassword(teacherDTO.password());
         teacher.setEmail(teacherDTO.email());
         if (teacherDTO.courseOfferingDTOS() != null)
             teacher.setCourseOfferings(teacherDTO.courseOfferingDTOS().stream()
@@ -23,6 +25,7 @@ public class TeacherMapper {
     }
 
     public static TeacherDTO toTeacherDTO(@NotNull Teacher teacher) {
-        return new TeacherDTO(teacher.getId(), teacher.getName(), teacher.getEmail(), null);
+        return new TeacherDTO(teacher.getId(), teacher.getFullName(), teacher.getUsername(), teacher.getPassword(),
+                teacher.getEmail(), null);
     }
 }

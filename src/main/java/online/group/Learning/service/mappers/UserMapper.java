@@ -10,7 +10,8 @@ import online.group.Learning.model.entity.User;
 public class UserMapper {
 
     public static UserDTO toDTO(User user) {
-        return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getAddress(), user.getPhoneNumber());
+        return new UserDTO(user.getId(), user.getFullName(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAddress(),
+                user.getPhoneNumber());
     }
 
 }

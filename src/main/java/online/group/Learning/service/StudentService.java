@@ -10,6 +10,9 @@ import online.group.Learning.repository.StudentRepository;
 import online.group.Learning.service.mappers.CourseOfferingMapper;
 import online.group.Learning.service.mappers.StudentMapper;
 import online.group.Learning.service.mappers.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,10 +20,12 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
     private final CourseOfferingService courseOfferingService;
+    private final PasswordEncoder passwordEncoder;
 
-    public StudentService(StudentRepository studentRepository, CourseOfferingService courseOfferingService) {
+    public StudentService(StudentRepository studentRepository, CourseOfferingService courseOfferingService, PasswordEncoder passwordEncoder) {
         this.studentRepository = studentRepository;
         this.courseOfferingService = courseOfferingService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public StudentDTO enrollStudentInCourseOffering(Long studentId, Long courseOfferingId) {
@@ -45,7 +50,9 @@ public class StudentService {
     }
 
     public UserDTO createStudent(UserDTO userDTO) {
-        Student student = StudentMapper.toStudent(new StudentDTO(userDTO.id(), userDTO.name(), userDTO.email(), null));
+        String passwordEncoded = passwordEncoder.encode(userDTO.password());
+        Student student = StudentMapper.toStudent(new StudentDTO(userDTO.id(), userDTO.fullName(), userDTO.username(),
+                passwordEncoded, userDTO.email(), null));
         User user = studentRepository.save(student);
         return UserMapper.toDTO(user);
     }

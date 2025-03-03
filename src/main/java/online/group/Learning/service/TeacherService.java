@@ -7,21 +7,27 @@ import online.group.Learning.repository.TeacherRepository;
 import online.group.Learning.model.dto.TeacherDTO;
 import online.group.Learning.service.mappers.TeacherMapper;
 import online.group.Learning.service.mappers.UserMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TeacherService {
 
-    private TeacherRepository teacherRepository;
+    private final TeacherRepository teacherRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public TeacherService(TeacherRepository teacherRepository) {
+    public TeacherService(TeacherRepository teacherRepository, PasswordEncoder passwordEncoder) {
         this.teacherRepository = teacherRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserDTO createTeacher(UserDTO userDTO) {
-        Teacher teacher = TeacherMapper.toTeacher(new TeacherDTO(userDTO.id(), userDTO.name(), userDTO.email(),
-                null));
+        String passwordEncoded = passwordEncoder.encode(userDTO.password());
+        Teacher teacher = TeacherMapper.toTeacher(new TeacherDTO(userDTO.id(), userDTO.fullName(), userDTO.username(),
+                passwordEncoded, userDTO.email(), null));
         User user = teacherRepository.save(teacher);
         return UserMapper.toDTO(user);
     }
+
+
 }
