@@ -1,6 +1,6 @@
 package online.group.Learning.service;
 
-import online.group.Learning.model.dto.CourseDTO;
+import online.group.Learning.controller.dto.CourseDTO;
 import online.group.Learning.model.entity.Course;
 import online.group.Learning.repository.CourseRepository;
 import online.group.Learning.service.mappers.CourseMapper;

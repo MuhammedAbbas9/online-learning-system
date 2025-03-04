@@ -1,6 +1,4 @@
-package online.group.Learning.model.dto;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package online.group.Learning.controller.dto;
 
 import java.time.LocalDate;
 import java.util.List;

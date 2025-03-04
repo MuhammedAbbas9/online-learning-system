@@ -25,6 +25,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username).map(user ->
                         User.withUsername(user.getUsername())
                                 .password(user.getPassword())
+                                .roles(user.getUserType().toString())
                                 .build())
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found!"));
     }

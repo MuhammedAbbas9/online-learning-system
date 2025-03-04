@@ -2,7 +2,7 @@ package online.group.Learning.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import online.group.Learning.model.dto.StudentDTO;
+import online.group.Learning.controller.dto.StudentDTO;
 import online.group.Learning.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
  * - DELETE /api/students/unroll: Unenrolls a student from a course offering.
  */
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api/student")
 public class StudentController {
 
     @Autowired

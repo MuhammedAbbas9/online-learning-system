@@ -2,7 +2,7 @@ package online.group.Learning.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import online.group.Learning.model.dto.UserDTO;
+import online.group.Learning.controller.dto.UserDTO;
 import online.group.Learning.service.StudentService;
 import online.group.Learning.service.TeacherService;
 import online.group.Learning.service.UserService;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2/21/2025
  */
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -32,7 +32,8 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
+    @Operation(summary = "Sign in", description = "Sign in as a user")
+    @ApiResponse(responseCode = "201", description = "User is logged in successfully!")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestParam String username, @RequestParam String password) {
         Authentication authentication = authenticationManager.authenticate(
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @Operation(summary = "Register a user", description = "Create a new user in the system")
-    @ApiResponse(responseCode = "201", description = "User is registered successfully")
+    @ApiResponse(responseCode = "201", description = "User is registered successfully!")
     @PostMapping("/register")
     public ResponseEntity<UserDTO> registerUser(@RequestParam boolean isTeacher, @RequestBody UserDTO userDTO) {
         if (isTeacher)

@@ -1,7 +1,7 @@
 package online.group.Learning.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import online.group.Learning.model.dto.CourseOfferingDTO;
+import online.group.Learning.controller.dto.CourseOfferingDTO;
 import online.group.Learning.model.entity.CourseOffering;
 import online.group.Learning.repository.CourseOfferingRepository;
 import online.group.Learning.service.mappers.CourseOfferingMapper;

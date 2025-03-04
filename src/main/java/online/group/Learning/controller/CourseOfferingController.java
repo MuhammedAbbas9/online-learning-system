@@ -2,10 +2,11 @@ package online.group.Learning.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import online.group.Learning.model.dto.CourseOfferingDTO;
+import online.group.Learning.controller.dto.CourseOfferingDTO;
 import online.group.Learning.service.CourseOfferingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,7 @@ import java.util.List;
  * - DELETE /api/course-offerings/{id}: Deletes an existing course offering by its ID.
  */
 @RestController
-@RequestMapping("/api/course-offerings")
+@RequestMapping("/api/course-offering")
 public class CourseOfferingController {
 
     @Autowired
@@ -38,6 +39,7 @@ public class CourseOfferingController {
     @Operation(summary = "Get all Course Offerings", description = "Fetch a list of all the course offerings")
     @ApiResponse(responseCode = "200", description = "Course Offerings list is fetched successfully!")
     @GetMapping
+//    @PreAuthorize("hasRole('STUDENT')")
     public ResponseEntity<List<CourseOfferingDTO>> listAllCourseOfferings() {
         return ResponseEntity.ok(courseOfferingService.getAllCourseOfferings());
     }

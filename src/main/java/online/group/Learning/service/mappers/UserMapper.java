@@ -1,6 +1,6 @@
 package online.group.Learning.service.mappers;
 
-import online.group.Learning.model.dto.UserDTO;
+import online.group.Learning.controller.dto.UserDTO;
 import online.group.Learning.model.entity.User;
 
 /**
@@ -10,8 +10,9 @@ import online.group.Learning.model.entity.User;
 public class UserMapper {
 
     public static UserDTO toDTO(User user) {
-        return new UserDTO(user.getId(), user.getFullName(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAddress(),
-                user.getPhoneNumber());
+
+        return user != null ? new UserDTO(user.getId(), user.getFullName(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAddress(),
+                user.getPhoneNumber()) : null;
     }
 
 }

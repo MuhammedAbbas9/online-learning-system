@@ -1,6 +1,6 @@
 package online.group.Learning.service.mappers;
 
-import online.group.Learning.model.dto.CourseOfferingDTO;
+import online.group.Learning.controller.dto.CourseOfferingDTO;
 import online.group.Learning.model.entity.Course;
 import online.group.Learning.model.entity.CourseOffering;
 import online.group.Learning.model.entity.Teacher;
@@ -19,8 +19,10 @@ public class CourseOfferingMapper {
         courseOffering.setTeacher(teacher);
 
         if (courseOfferingDTO.studentDTOList() != null)
-            courseOffering.setStudents(courseOfferingDTO.studentDTOList().stream().map(StudentMapper::toStudent).toList());
-        else courseOffering.setStudents(null);
+            courseOffering
+                    .setStudents(courseOfferingDTO.studentDTOList().stream().map(StudentMapper::toStudent).toList());
+        else
+            courseOffering.setStudents(null);
 
         courseOffering.setTerm(courseOfferingDTO.term());
         courseOffering.setStartDate(courseOfferingDTO.startDate());
@@ -31,7 +33,7 @@ public class CourseOfferingMapper {
 
     public static CourseOfferingDTO toCourseOfferingDTO(CourseOffering courseOffering) {
 
-        if(courseOffering.getStudents() == null)
+        if (courseOffering.getStudents() == null)
             courseOffering.setStudents(new ArrayList<>());
         return new CourseOfferingDTO(courseOffering.getId(), CourseMapper.toCourseDTO(courseOffering.getCourse()),
                 TeacherMapper.toTeacherDTO(courseOffering.getTeacher()), null,

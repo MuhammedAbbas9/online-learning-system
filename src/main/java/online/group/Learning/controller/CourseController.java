@@ -2,7 +2,7 @@ package online.group.Learning.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import online.group.Learning.model.dto.CourseDTO;
+import online.group.Learning.controller.dto.CourseDTO;
 import online.group.Learning.model.entity.Course;
 import online.group.Learning.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.List;
  * - DELETE /api/courses/{courseId}: Deletes an existing course by its ID.
  */
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/api/course")
 public class CourseController {
 
     @Autowired

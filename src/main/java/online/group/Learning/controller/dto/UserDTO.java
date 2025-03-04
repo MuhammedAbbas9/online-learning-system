@@ -1,4 +1,4 @@
-package online.group.Learning.model.dto;
+package online.group.Learning.controller.dto;
 
 import lombok.Data;
 

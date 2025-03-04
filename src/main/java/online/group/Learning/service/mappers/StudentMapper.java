@@ -1,6 +1,6 @@
 package online.group.Learning.service.mappers;
 
-import online.group.Learning.model.dto.StudentDTO;
+import online.group.Learning.controller.dto.StudentDTO;
 import online.group.Learning.model.entity.Student;
 import org.jetbrains.annotations.NotNull;
 
