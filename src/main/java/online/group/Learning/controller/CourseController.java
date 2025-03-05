@@ -4,9 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import online.group.Learning.controller.dto.CourseDTO;
 import online.group.Learning.model.entity.Course;
+import online.group.Learning.model.enums.UserType;
 import online.group.Learning.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +39,7 @@ public class CourseController {
 
     @Operation(summary = "Get all courses", description = "Fetch a list of all available courses")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved courses")
+    //@PreAuthorize("hasRole('STUDENT')")
     @GetMapping
     public ResponseEntity<List<Course>> getAllCourses() {
         return ResponseEntity.ok(courseService.getAllCourses());

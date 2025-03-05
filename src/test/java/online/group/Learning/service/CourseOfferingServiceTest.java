@@ -11,6 +11,9 @@ import jakarta.persistence.EntityNotFoundException;
 import online.group.Learning.controller.dto.CourseOfferingDTO;
 import online.group.Learning.model.entity.Course;
 import online.group.Learning.model.entity.CourseOffering;
+import online.group.Learning.model.entity.Student;
+import online.group.Learning.model.entity.Teacher;
+import online.group.Learning.model.enums.UserType;
 import online.group.Learning.repository.CourseOfferingRepository;
 import online.group.Learning.service.mappers.CourseOfferingMapper;
 import static org.mockito.Mockito.mock;
@@ -21,6 +24,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.List;
 import java.util.Collections;
@@ -39,11 +43,34 @@ public class CourseOfferingServiceTest {
 
     @BeforeEach
     void setUp() {
+        Student student = new Student();
+        student.setId(1L);
+        student.setFullName("Jane Doe");
+        student.setUsername("janedoe");
+        student.setPassword("encodedPassword");
+        student.setEmail("janedoe@example.com");
+        student.setUserType(UserType.STUDENT);
+
+        Course course = new Course();
+        course.setId(1L);
+        course.setCourseCode("Course 101");
+        course.setDescription("Math 1");
+
+        Teacher teacher = new Teacher();
+        teacher.setId(1L);
+        teacher.setFullName("muhammed");
+        teacher.setUsername("abbas");
+        teacher.setUserType(UserType.TEACHER);
+        teacher.setEmail("abbas@gmail.com");
+
         courseOffering = new CourseOffering();
         courseOffering.setId(1L);
-        Course course = new Course();
-        course.setName("Course 101");
+        courseOffering.setTerm("Fall 2021");
         courseOffering.setCourse(course);
+        courseOffering.setTeacher(teacher);
+        courseOffering.setStudents(Collections.singletonList(student));
+        courseOffering.setStartDate(LocalDate.parse("2021-09-01"));
+        courseOffering.setEndDate(LocalDate.parse("2021-12-31"));
         courseOfferingDTO = CourseOfferingMapper.toCourseOfferingDTO(courseOffering);
     }
 
@@ -55,7 +82,7 @@ public class CourseOfferingServiceTest {
 
         assertNotNull(courseOfferings);
         assertEquals(1, courseOfferings.size());
-        assertEquals("Course 101", courseOfferings.get(0).getName());
+        assertEquals("Course 101", courseOfferings.get(0).courseDTO().courseCode());
     }
 
     @Test
@@ -65,7 +92,7 @@ public class CourseOfferingServiceTest {
         CourseOfferingDTO foundCourseOffering = courseOfferingService.getCourseOfferingById(1L);
 
         assertNotNull(foundCourseOffering);
-        assertEquals("Course 101", foundCourseOffering.getName());
+        assertEquals("Course 101", foundCourseOffering.courseDTO().courseCode());
     }
 
     @Test
@@ -84,7 +111,7 @@ public class CourseOfferingServiceTest {
         CourseOfferingDTO createdCourseOffering = courseOfferingService.createCourseOffering(courseOfferingDTO);
 
         assertNotNull(createdCourseOffering);
-        assertEquals("Course 101", createdCourseOffering.getName());
+        assertEquals("Course 101", createdCourseOffering.courseDTO().courseCode());
     }
 
     @Test
@@ -94,7 +121,7 @@ public class CourseOfferingServiceTest {
         CourseOfferingDTO updatedCourseOffering = courseOfferingService.updateCourseOffering(courseOfferingDTO);
 
         assertNotNull(updatedCourseOffering);
-        assertEquals("Course 101", updatedCourseOffering.getName());
+        assertEquals("Course 101", updatedCourseOffering.courseDTO().courseCode());
     }
 
     @Test

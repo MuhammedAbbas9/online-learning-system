@@ -18,12 +18,6 @@ public class CourseOfferingMapper {
         courseOffering.setCourse(course);
         courseOffering.setTeacher(teacher);
 
-        if (courseOfferingDTO.studentDTOList() != null)
-            courseOffering
-                    .setStudents(courseOfferingDTO.studentDTOList().stream().map(StudentMapper::toStudent).toList());
-        else
-            courseOffering.setStudents(null);
-
         courseOffering.setTerm(courseOfferingDTO.term());
         courseOffering.setStartDate(courseOfferingDTO.startDate());
         courseOffering.setEndDate(courseOfferingDTO.endDate());
@@ -36,7 +30,7 @@ public class CourseOfferingMapper {
         if (courseOffering.getStudents() == null)
             courseOffering.setStudents(new ArrayList<>());
         return new CourseOfferingDTO(courseOffering.getId(), CourseMapper.toCourseDTO(courseOffering.getCourse()),
-                TeacherMapper.toTeacherDTO(courseOffering.getTeacher()), null,
+                TeacherMapper.toTeacherDTO(courseOffering.getTeacher()),
                 courseOffering.getTerm(), courseOffering.getStartDate(), courseOffering.getEndDate());
     }
 }

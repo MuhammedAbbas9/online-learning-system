@@ -23,7 +23,9 @@ public class StudentMapper {
     }
 
     public static StudentDTO toStudentDTO(@NotNull Student student) {
-        return new StudentDTO(student.getId(), student.getFullName(), student.getUsername(), student.getPassword(),
-                student.getEmail(), null);
+        return student != null ? new StudentDTO(student.getId(), student.getFullName(), student.getUsername(), student.getPassword(),
+                student.getEmail(), student.getCourseOfferings().stream()
+                .map(CourseOfferingMapper::toCourseOfferingDTO).collect(Collectors.toSet())) : null;
     }
+
 }

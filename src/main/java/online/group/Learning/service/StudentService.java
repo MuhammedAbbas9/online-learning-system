@@ -25,7 +25,7 @@ public class StudentService {
     private final PasswordEncoder passwordEncoder;
 
     public StudentService(StudentRepository studentRepository, CourseOfferingService courseOfferingService,
-            PasswordEncoder passwordEncoder) {
+                          PasswordEncoder passwordEncoder) {
         this.studentRepository = studentRepository;
         this.courseOfferingService = courseOfferingService;
         this.passwordEncoder = passwordEncoder;
@@ -50,7 +50,11 @@ public class StudentService {
                 .orElseThrow(() -> new EntityNotFoundException("Student not found with id: " + studentId));
         CourseOffering courseOffering = CourseOfferingMapper
                 .toCourseOffering(courseOfferingService.getCourseOfferingById(courseOfferingId));
-        student.getCourseOfferings().remove(courseOffering);
+        if (student.getCourseOfferings() != null){
+            HashSet<CourseOffering> mutableCourseOfferings = new HashSet<>(student.getCourseOfferings());
+            mutableCourseOfferings.remove(courseOffering);
+            student.setCourseOfferings(mutableCourseOfferings);
+        }
         student = studentRepository.save(student);
         return StudentMapper.toStudentDTO(student);
     }

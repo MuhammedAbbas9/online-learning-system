@@ -38,7 +38,8 @@ public class TeacherServiceTest {
 
     @BeforeEach
     void setUp() {
-        userDTO = new UserDTO(1L, "John Doe", "johndoe", "password123", "johndoe@example.com", "123 Street", "1234567890");
+        userDTO = new UserDTO(1L, "John Doe", "johndoe", "password123",
+                "johndoe@example.com", "123 Street", "1234567890");
         teacher = new Teacher();
         teacher.setId(1L);
         teacher.setFullName("John Doe");

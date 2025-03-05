@@ -38,22 +38,22 @@ public class SecurityConfig {
 
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity
+//        return httpSecurity
 //                .csrf(AbstractHttpConfigurer::disable)
+//                .cors(AbstractHttpConfigurer::disable)
 //                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/api/course-offering/**").hasRole(UserType.STUDENT.toString())
-//                        .requestMatchers("/api/course/**").hasRole(UserType.TEACHER.toString())
-//                        .requestMatchers("/api/teacher/**").hasRole(UserType.TEACHER.toString())
-//                        .requestMatchers("/api/student/**").hasRole(UserType.STUDENT.toString())
 //                        .requestMatchers("/api/user/**").permitAll()
+//                        .requestMatchers("/api/course-offering/**").hasRole("STUDENT")
+//                        .requestMatchers("/api/course/**").hasRole("STUDENT")
+//                        .requestMatchers("/api/teacher/**").hasRole("STUDENT")
+//                        .requestMatchers("/api/student/**").hasRole("STUDENT")
 //                        .anyRequest().authenticated()
 //                )
-////                .formLogin(Customizer.withDefaults());
-////                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authenticationProvider(authenticationProvider());
-////                .httpBasic(Customizer.withDefaults())
-////                .build();
-//        return httpSecurity.build();
+//                // .authenticationProvider(authenticationProvider());
+//                .httpBasic(Customizer.withDefaults())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .build();
+////        return httpSecurity.build();
 //    }
 
     @Bean

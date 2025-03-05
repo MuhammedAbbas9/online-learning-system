@@ -3,6 +3,7 @@ package online.group.Learning.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import online.group.Learning.controller.dto.UserDTO;
+import online.group.Learning.controller.utils.JwtUtils;
 import online.group.Learning.service.StudentService;
 import online.group.Learning.service.TeacherService;
 import online.group.Learning.service.UserService;
@@ -32,6 +33,9 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
     @Operation(summary = "Sign in", description = "Sign in as a user")
     @ApiResponse(responseCode = "201", description = "User is logged in successfully!")
     @PostMapping("/login")
@@ -40,7 +44,8 @@ public class UserController {
                 new UsernamePasswordAuthenticationToken(username, password));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return ResponseEntity.ok("Login Successful!");
+        String jwt = jwtUtils.generateToken(authentication);
+        return ResponseEntity.ok(jwt);
     }
 
     @Operation(summary = "Register a user", description = "Create a new user in the system")

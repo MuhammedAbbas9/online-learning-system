@@ -8,7 +8,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Set;
 
+import online.group.Learning.model.entity.Course;
+import online.group.Learning.model.entity.Teacher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -57,14 +61,27 @@ public class StudentServiceTest {
         student.setEmail("janedoe@example.com");
         student.setUserType(UserType.STUDENT);
 
+        Course course = new Course();
+        course.setId(1L);
+        course.setCourseCode("101 Math");
+        course.setDescription("Math 1");
+
+        Teacher teacher = new Teacher();
+        teacher.setId(1L);
+        teacher.setFullName("muhammed");
+        teacher.setUsername("abbas");
+        teacher.setUserType(UserType.TEACHER);
+        teacher.setEmail("abbas@gmail.com");
+
         courseOffering = new CourseOffering();
         courseOffering.setId(1L);
         courseOffering.setTerm("Fall 2021");
+        courseOffering.setCourse(course);
+        courseOffering.setTeacher(teacher);
+        courseOffering.setStudents(Collections.singletonList(student));
         courseOffering.setStartDate(LocalDate.parse("2021-09-01"));
         courseOffering.setEndDate(LocalDate.parse("2021-12-31"));
-        
-
-        
+        student.setCourseOfferings(Set.of(courseOffering));
     }
 
     @Test
@@ -99,6 +116,23 @@ public class StudentServiceTest {
         // Assert
         assertNotNull(enrolledStudent);
         assertEquals("Jane Doe", enrolledStudent.fullName());
+        Mockito.verify(studentRepository).save(any(Student.class));
+    }
+
+    @Test
+    void shouldDeregisterStudentFromCourseOfferingSuccessfully() {
+        // Arrange
+        CourseOfferingDTO courseOfferingDTO = CourseOfferingMapper.toCourseOfferingDTO(courseOffering);
+        when(studentRepository.findById(anyLong())).thenReturn(java.util.Optional.of(student));
+        when(courseOfferingService.getCourseOfferingById(anyLong())).thenReturn(courseOfferingDTO);
+        when(studentRepository.save(any(Student.class))).thenReturn(student);
+
+        // Act
+        StudentDTO deregisteredStudent = studentService.deregisterStudentFromCourseOffering(1L, 1L);
+
+        // Assert
+        assertNotNull(deregisteredStudent);
+        assertEquals("Jane Doe", deregisteredStudent.fullName());
         Mockito.verify(studentRepository).save(any(Student.class));
     }
 }
